@@ -27,11 +27,9 @@ body, html {
   width: 20%;
   min-height: 55px;
 }
-
 .tablink_dev:hover {
   background-color: #777;
 }
-
 /* Style the tab content (and add height:100% for full page content) */
 .tabcontent_dev {
   color: white;
@@ -39,7 +37,6 @@ body, html {
   padding: 100px 20px;
   height: 100%;
 }
-
 #Home_dev {background-color: red;}
 #News_dev {background-color: green;}
 #Contact_dev {background-color: blue;}
