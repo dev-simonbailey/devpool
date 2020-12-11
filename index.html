@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Title Page</title>
+  <!-- Bootstrap CSS -->
+  <style>
+    .custom-header{
+      background-color: #D0D0D0;
+      color: white;
+      text-align: center;
+    }
+    li {
+      text-align:left;
+    }
+  </style>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="css/multi-select.css">
+</head>
+<body>
+  <center>
+  <hr />
+  <!-- start -->
+  <h1>Applications & Data</h1>
+  <select id='applicationdata' name='applicationdata' multiple>
+    <option value='Python' selected>Python</option>
+    <option value='Nginx'>NGINX</option>
+    <option value='React'>React</option>
+    <option value='Java'>Java</option>
+    <option value='MySQL'>MySQL</option>
+    <option value='Redis'>Redis</option>
+    <option value='Amazon_EC2'>EC2</option>
+    <option value='Amazon_S3'>S3</option>
+    <option value='Django'>Django</option>
+    <option value='Cloudfront'>Cloudfront</option>
+    <option value='Go'>Go</option>
+    <option value='Objective-C'>Objective-C</option>
+    <option value='Backbone.js'>Backbone.js</option>
+    <option value='Memcached'>Memcached</option>
+    <option value='Hadoop'>Hadoop</option>
+    <option value='Underscore'>Underscore</option>
+    <option value='HBase'>HBase</option>
+    <option value='Edgecast'>Edgecast</option>
+    <option value='Qubole'>Qubole</option>
+    <option value='mysql_utils'>mysqlutils</option>
+  </select>
+  <br />
+  <input type='text' id='newApplicationData' style='width:342px'>
+  <button id='add-option-1'>+</button>
+  <!-- ends -->
+  <hr />
+  <!-- start -->
+  <h1>Dev Ops</h1>
+  <select id='devops' name='devops' multiple>
+    <option value='Docker'>Docker</option>
+    <option value='Webpack'>Webpack</option>
+    <option value='Varnish'>Varnish</option>
+    <option value='XCode'>XCode</option>
+    <option value='Pingdom'>Pingdom</option>
+    <option value='Zookeeper'>Zookeeper</option>
+    <option value='Crittercism'>CritterCism</option>
+    <option value='Teletraan'>Teletraan</option>
+  </select>
+  <br />
+  <input type='text' id='newDevOpsData' style='width:342px'>
+  <button id='add-option-2'>+</button>
+  <!-- ends -->
+  <hr />
+  <!-- start -->
+  <h1>Utilities</h1>
+  <select id='utilities' name='utilities' multiple>
+    <option value='Amazon_Route_53'>Amazon Route 53</option>
+    <option value='Sparkpost'>Sparkpost</option>
+    <option value='Bitbar'>Bitbar</option>
+  </select>
+  <br />
+  <input type='text' id='newUtilitiesData' style='width:342px'>
+  <button id='add-option-3'>+</button>
+  <!-- ends -->
+  <hr />
+  </center>
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+  <!-- Bootstrap JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+  <script src="js/jquery.multi-select.js"></script>
+  <script type="text/javascript">
+  let applicationdata = [];
+  let devops = [];
+  let utilities = [];
+  // run applicationdata
+  $('#applicationdata').multiSelect(
+    {
+      selectableHeader: "<div class='custom-header'>Select Skills</div>",
+      selectableFooter: "<div class='custom-header'>&nbsp;</div>",
+      selectionHeader: "<div class='custom-header'>Selected Skills</div>",
+      selectionFooter: "<div class='custom-header'>&nbsp;</div>",
+      afterSelect: function(values){
+      applicationdata.push(values[0]);
+      logToConsole();
+    },
+    afterDeselect: function(values)
+      {
+        const index = applicationdata.indexOf(values[0]);
+        if (index > -1) {
+          applicationdata.splice(index, 1);
+        }
+        logToConsole();
+      }
+    }
+  );
+  $('#add-option-1').on('click', function()
+    {
+      var newItem = $("#newApplicationData").val();
+      $("#newApplicationData").val('');
+      $('#applicationdata').multiSelect('addOption', { value: newItem, text: newItem, index: 0 });
+      return false;
+    }
+  );
+  // run devops
+  $('#devops').multiSelect(
+    {
+      selectableHeader: "<div class='custom-header'>Select Skills</div>",
+      selectableFooter: "<div class='custom-header'>&nbsp;</div>",
+      selectionHeader: "<div class='custom-header'>Selected Skills</div>",
+      selectionFooter: "<div class='custom-header'>&nbsp;</div>",
+      afterSelect: function(values){
+      devops.push(values[0]);
+      logToConsole();
+    },
+    afterDeselect: function(values)
+      {
+      const index = devops.indexOf(values[0]);
+        if (index > -1) {
+          devops.splice(index, 1);
+        }
+          logToConsole();
+        }
+    }
+  );
+  $('#add-option-2').on('click', function()
+    {
+      var newItem = $( "#newDevOpsData" ).val();
+      $( "#newDevOpsData" ).val('');
+      $('#devops').multiSelect('addOption', { value: newItem, text: newItem, index: 0 });
+      return false;
+    }
+  );
+  // run utilities
+  $('#utilities').multiSelect(
+    {
+      selectableHeader: "<div class='custom-header'>Select Skills</div>",
+      selectableFooter: "<div class='custom-header'>&nbsp;</div>",
+      selectionHeader: "<div class='custom-header'>Selected Skills</div>",
+      selectionFooter: "<div class='custom-header'>&nbsp;</div>",
+      afterSelect: function(values){
+      utilities.push(values[0]);
+      logToConsole();
+    },
+    afterDeselect: function(values)
+      {
+        const index = utilities.indexOf(values[0]);
+        if (index > -1) {
+          utilities.splice(index, 1);
+        }
+        logToConsole();
+      }
+    }
+  );
+  $('#add-option-3').on('click', function()
+    {
+      var newItem = $( "#newUtilitiesData" ).val();
+      $( "#newUtilitiesData" ).val('');
+      $('#utilities').multiSelect('addOption', { value: newItem, text: newItem, index: 0 });
+      return false;
+    }
+  );
+
+  function logToConsole(){
+    console.clear();
+    console.log("Applications & Data");
+    console.log(applicationdata);
+    console.log("Dev Ops");
+    console.log(devops);
+    console.log("Utilities");
+    console.log(utilities);
+  }
+  </script>
+</body>
+</html>
