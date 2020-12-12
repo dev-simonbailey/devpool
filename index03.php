@@ -189,9 +189,10 @@ li {
           <br /><br />
           <input class='box1' type='text' placeholder='Contact Number'>
           <br /><br />
-          <select name='looking'>
-            <option value='CL'>Currently Looking</option>
-            <option value='NL'>Not Looking</option>
+          <select class='box1' name='looking'>
+            <option value='PS'>I am...</option>
+            <option value='CL'>currently looking</option>
+            <option value='NL'>not looking</option>
           </select>
           <br /><br />
           <input class='box1' type='text' placeholder='Current Role'>
