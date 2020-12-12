@@ -145,6 +145,7 @@ li {
   height:32px;
   width: 250px;
   font-family:menlo,arial;
+  color: #000;
 }
 
 .apply {
