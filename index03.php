@@ -190,7 +190,7 @@ li {
           <input class='box1' type='text' placeholder='Contact Number'>
           <br /><br />
           <select class='box1' name='looking'>
-            <option value='PS' selected>I am...</option>
+            <option value='' disabled selected>I am...</option>
             <option value='CL'>currently looking</option>
             <option value='NL'>not looking</option>
           </select>
