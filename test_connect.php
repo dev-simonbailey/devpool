@@ -18,7 +18,7 @@ foreach ($skills as $value) {
         echo "apps_and_data ==> ".$item_key." ==> ".$item."<br />";
         break;
       default:
-        //echo $item_key."==>".$item."<br />";
+        echo "everything_else ==> ".$item_key." ==> ".$item."<br />";
         break;
     }
   }
