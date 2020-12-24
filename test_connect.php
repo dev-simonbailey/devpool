@@ -9,8 +9,11 @@ $users = $DB->queryFirstRow("SELECT * FROM users WHERE username='simon.bailey'")
 
 $skills = $DB->query("SELECT * FROM devpool01.skillset WHERE user_id = '".$users['id']."'");
  
-foreach ($skills as $key => $value) {
+
+
+foreach ($skills as $value) {
   foreach ($value as $item_key => $item) {
+    /*
     switch ($item_key['group']){
       case "apps_and_data":
         echo $item_key."==>".$item."<br />";
@@ -19,5 +22,7 @@ foreach ($skills as $key => $value) {
         echo $item_key."==>".$item."<br />";
         break;
     }
+    */
+    echo $item_key."==>".$item."<br />";
   }
 }
