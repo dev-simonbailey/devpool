@@ -7,9 +7,14 @@ $DB = new MeekroDB($host, $user, $password, $dbName, $port, $encoding);
 
 $users = $DB->queryFirstRow("SELECT * FROM users WHERE username='simon.bailey'");
 
+var_dump($users);
+
+$user_data = $DB->queryFirstRow("SELECT * FROM user_details WHERE user_id='".$users['id']."'");
+
+var_dump($user_data);
+
 $skills = $DB->query("SELECT * FROM devpool01.skillset WHERE user_id = '".$users['id']."'");
  
-
 $apps_and_data  = [];
 $dev_ops        = [];
 $utils          = [];
