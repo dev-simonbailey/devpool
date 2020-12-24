@@ -13,16 +13,13 @@ $skills = $DB->query("SELECT * FROM devpool01.skillset WHERE user_id = '".$users
 
 foreach ($skills as $value) {
   foreach ($value as $item_key => $item) {
-    /*
-    switch ($item_key['group']){
+    switch ($item_key){
       case "apps_and_data":
-        echo $item_key."==>".$item."<br />";
+        echo "apps_and_data ==> ".$item_key." ==> ".$item."<br />";
         break;
       default:
-        echo $item_key."==>".$item."<br />";
+        //echo $item_key."==>".$item."<br />";
         break;
     }
-    */
-    echo $item_key."==>".$item."<br />";
   }
 }
