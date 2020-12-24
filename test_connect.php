@@ -52,15 +52,20 @@ foreach ($skills as $value) {
   }
 }
 
+echo "APPS AND DATA<br />";
 foreach ($apps_and_data as $value) {
-  echo "apps_and_data"."==>".$value."<br />";
+  echo "    ==>".$value."<br />";
 }
 echo "<br /><br />";
+
+echo "DEV OPS<br />";
 foreach ($dev_ops as $value) {
-  echo "dev_ops"."==>".$value."<br />";
+  echo "    ==>".$value."<br />";
 }
 echo "<br /><br />";
+
+echo "UTILITIES<br />";
 foreach ($utils as $value) {
-  echo "utils"."==>".$value."<br />";
+  echo "    ==>".$value."<br />";
 }
 echo "<br /><br />";
