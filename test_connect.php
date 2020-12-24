@@ -16,6 +16,7 @@ foreach ($skills as $key => $value) {
         echo $item_key."==>".$item."<br />";
         break;
       default:
+        echo $item_key."==>".$item."<br />";
         break;
     }
   }
