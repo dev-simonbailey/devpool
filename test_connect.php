@@ -12,5 +12,8 @@ $skills = $DB->query("SELECT * FROM devpool01.skillset WHERE user_id = '".$users
 var_dump($skills);
 
 foreach ($skills as $key => $value) {
-  echo $key."==>".$value."<br />";
+  foreach ($value as $item_key => $item) {
+    echo $item_key."==>".$item."<br />";
+  }
+  
 }
