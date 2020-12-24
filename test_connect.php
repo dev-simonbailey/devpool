@@ -11,7 +11,7 @@ $skills = $DB->query("SELECT * FROM devpool01.skillset WHERE user_id = '".$users
  
 foreach ($skills as $key => $value) {
   foreach ($value as $item_key => $item) {
-    switch ($item_key){
+    switch ($item_key['group']){
       case "apps_and_data":
         echo $item_key."==>".$item."<br />";
         break;
