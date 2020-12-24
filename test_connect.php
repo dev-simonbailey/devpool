@@ -7,11 +7,26 @@ $DB = new MeekroDB($host, $user, $password, $dbName, $port, $encoding);
 
 $users = $DB->queryFirstRow("SELECT * FROM users WHERE username='simon.bailey'");
 
-var_dump($users);
+echo "USERS<br />";
+echo "id: ".$users['id']."<br />";
+echo "username ".$users['username']."<br />";
+echo "password ".$users['password']."<br />";
+echo "created ".$users['created']."<br /><br />";
 
 $user_data = $DB->queryFirstRow("SELECT * FROM user_details WHERE user_id='".$users['id']."'");
 
-var_dump($user_data);
+echo "USER DATA<br />";
+echo "id: ".$user_data['id']."<br />";
+echo "user_id: ".$user_data['user_id']."<br />";
+echo "user_first: ".$user_data['user_first']."<br />";
+echo "user_last: ".$user_data['user_last']."<br />";
+echo "user_email: ".$user_data['user_email']."<br />";
+echo "user_tel: ".$user_data['user_tel']."<br />";
+echo "user_looking: ".$user_data['user_looking']."<br />";
+echo "user_job_title: ".$user_data['user_job_title']."<br />";
+echo "user_salary: ".$user_data['user_salary']."<br />";
+echo "user_notice: ".$user_data['user_notice']."<br />";
+echo "user_postcode: ".$user_data['user_postcode']."<br /><br />";
 
 $skills = $DB->query("SELECT * FROM devpool01.skillset WHERE user_id = '".$users['id']."'");
  
