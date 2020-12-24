@@ -11,6 +11,6 @@ $skills = $DB->query("SELECT * FROM devpool01.skillset WHERE user_id = '".$users
 
 var_dump($skills);
 
-foreach ($variable as $key => $value) {
+foreach ($skills as $key => $value) {
   echo $key."==>".$value."<br />";
 }
