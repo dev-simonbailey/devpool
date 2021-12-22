@@ -1,0 +1,34 @@
+SELECT user_id, name, exp FROM tech WHERE (name='HTML' AND exp > 10) OR (name='Javascript' AND exp > 4) ORDER BY user_id ASC;
+
+
+SELECT *
+FROM tech 
+WHERE name IN
+       (
+       SELECT name 
+       FROM tech 
+       WHERE  (name = 'HTML' AND exp > 5)
+       AND (name = 'Javascript' AND exp > 5)
+       );
+
+SELECT * FROM tech WHERE (exp > 10 AND name='HTML') AND (exp > 4 AND name='Javascript');
+
+SELECT * FROM tech WHERE name='Javascript' AND exp > 4;
+
+SELECT DISTINCT(user_id) 
+FROM tech 
+WHERE (exp > 10 AND name='HTML') OR (exp > 4 AND name='CSS');
+
+
+SELECT name, exp 
+FROM tech 
+WHERE user_id = '1' 
+Order By Case name 
+    WHEN 'HTML' THEN 1 
+    WHEN 'Javascript' 
+    THEN 2  
+    Else 3 
+End
+
+
+SELECT title, exp FROM jobs WHERE user_id = 1
