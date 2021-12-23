@@ -1,8 +1,3 @@
-/**
- * Set the base URL for all queries
- */
-const baseUrl = "http://localhost:8888/thedevpool/queries/";
-
 
 const app = document.getElementById('root');
 
