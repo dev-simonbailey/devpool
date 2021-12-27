@@ -12,7 +12,7 @@ for(i=0;i<=21;i++){
 
 var techRowCounter = 1;
 var requestStack = new XMLHttpRequest();
-let url = baseUrl+"getStack.php";
+let url = baseUrl+"queries/getStack.php";
 
 requestStack.open("GET", url, true);
 requestStack.send();
@@ -233,7 +233,7 @@ function getTalent() {
     
     if(!noExp && !noTech){
     
-        let url = baseUrl+"getTech.php";
+        let url = baseUrl+"queries/getTech.php";
     
         request.open("POST", url, true);
         request.send(queryString);
