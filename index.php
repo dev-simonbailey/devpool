@@ -1,3 +1,14 @@
+<?php
+session_start();
+if($_SESSION['isValid']){
+  $_SESSION['isValid'] = false;
+}
+if($_SESSION['isValid']){
+  error_log("Valid User\n");
+} else {
+  error_log("Invalid User\n");
+}
+?>
 <!doctype html>
 
 <html lang="en">
@@ -63,8 +74,8 @@
   <div class="item3">
     Talent
     <form name='talent-form' action='queries/talentLogin.php' method='POST'>
-      <input class='boxes' type='text' name='email' placeholder='Email'>
-      <input class='boxes' type='text' name='password' placeholder="Password">
+      <input class='boxes' type='text' name='email' placeholder='Email' required>
+      <input class='boxes' type='text' name='password' placeholder="Password" required>
       <input class='buttons'type='submit' value='Login'>
     </form>
   </div>  
@@ -73,13 +84,13 @@
   <div class="item4">
     Recruiter
     <form name='talent-form' action='queries/recruitLogin.php' method='POST'>
-      <input class='boxes' type='text' name='email' placeholder='Email'>
-      <input class='boxes' type='text' name='password' placeholder="Password">
+      <input class='boxes' type='text' name='email' placeholder='Email' required>
+      <input class='boxes' type='text' name='password' placeholder="Password" required>
       <input class='buttons'type='submit' value='Login'>
     </form>
   </div>
   <div class="item5"></div>
-  <div class="item6">&copy; <?php echo date("d-m-Y");?></div>
+  <div class="item6">&copy; <?php echo date("Y");?> fivefivesix</div>
 </div>
 </body>
 </html>

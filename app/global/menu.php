@@ -4,9 +4,8 @@
     <!-- Navigation links (hidden by default) -->
     <div id="myLinks">
         <script>
-            document.writeln("<a id='talent-link' href='"+baseUrl+"app/talent'>Talent</a>");
-            document.writeln("<a id='talent-link' href='"+baseUrl+"app/recruiter'>Recruiter</a>");
-            document.writeln("<a id='talent-link' href='"+baseUrl+"app/about'>About</a>");
+            document.writeln("<a id='home-link' href='"+baseUrl+"index.php'>Home</a>");
+            document.writeln("<a id='about-link' href='"+baseUrl+"app/about'>About</a>");
         </script>
     </div>
     <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
