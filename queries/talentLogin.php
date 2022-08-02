@@ -15,15 +15,15 @@ if (!$db) {
     echo $db->lastErrorMsg();
 }
 
-htmlspecialchars($_POST['email'],  ENT_QUOTES, 'UTF-8');
+$query = 'SELECT * FROM user_users WHERE email=:email AND password=:password;';
 
-$email = htmlspecialchars($_POST['email'],  ENT_QUOTES, 'UTF-8'); //$_POST['email'];
+$stmt = $db->prepare($query);
 
-$passWord = htmlspecialchars($_POST['password'],  ENT_QUOTES, 'UTF-8'); //$_POST['password'];
+$stmt->bindParam(':email', $_POST['email']);
 
-$userQuery = "SELECT * FROM user_users WHERE email='" . $email . "' AND password='" . $passWord . "'";
+$stmt->bindParam(':password', $_POST['password']);
 
-$userRet = $db->query($userQuery);
+$userRet = $stmt->execute();
 
 if (!empty($userRet->fetchArray(SQLITE3_ASSOC))) {
     $_SESSION['isValid'] = true;
