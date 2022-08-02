@@ -4,31 +4,32 @@ session_start();
 
 $_SESSION['isValid'] = false;
 
-error_reporting( E_ALL );
+error_reporting(E_ALL);
 
-require_once( __DIR__."/../classes/Connector.php" );
+require_once(__DIR__ . "/../classes/Connector.php");
 
 $db = new DevPool();
 
-if( !$db ) {
+if (!$db) {
 
     echo $db->lastErrorMsg();
-
 }
 
-$email = $_POST['email'];
+htmlspecialchars($_POST['email'],  ENT_QUOTES, 'UTF-8');
 
-$passWord = $_POST['password'];
+$email = htmlspecialchars($_POST['email'],  ENT_QUOTES, 'UTF-8'); //$_POST['email'];
 
-$userQuery = "SELECT * FROM user_users WHERE email='".$email."' AND password='".$passWord."'";
+$passWord = htmlspecialchars($_POST['password'],  ENT_QUOTES, 'UTF-8'); //$_POST['password'];
 
-$userRet = $db->query( $userQuery );
+$userQuery = "SELECT * FROM user_users WHERE email='" . $email . "' AND password='" . $passWord . "'";
 
-if(!empty($userRet->fetchArray( SQLITE3_ASSOC ))){
+$userRet = $db->query($userQuery);
+
+if (!empty($userRet->fetchArray(SQLITE3_ASSOC))) {
     $_SESSION['isValid'] = true;
 }
 
-if($_SESSION['isValid']){
+if ($_SESSION['isValid']) {
     echo "Valid User";
 } else {
     echo "Invalid User";
