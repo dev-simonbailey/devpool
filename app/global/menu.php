@@ -1,15 +1,15 @@
 <div class="topnav">
     <a href="#home" class="active">fivefivesix</a>
     <div id="topLinks">
-        <div class='link-div'><a class='link' id='about-link'>about</a></div>
-        <?php
-        if ($_SESSION['recruiter_isValid']) {
-            echo "<div class='link-div'><a class='link' id='search-link'>Search</a></div>";
-        }
-        ?>
-        <div class='link-div'><a class='link' id='home-link'>home</a></div>
-
-
+        <div class='link-div'><a class='link' href='http://localhost:8888/github/devpool/app/about/'>about</a></div>
+        <?php if ($_SESSION['recruiter_isValid']) { ?>
+            <div class='link-div'><a class='link' id='about-link' href='http://localhost:8888/github/devpool/app/recruiter/'>Search</a></div>
+            <div class='link-div'><a class='link' id='home_link' href='http://localhost:8888/github/devpool/'>Logout</a></div>
+        <?php } ?>
+        <?php if ($_SESSION['talent_isValid']) { ?>
+            <div class='link-div'><a class='link' href='http://localhost:8888/github/devpool/app/recruiter/'>Search</a></div>
+            <div class='link-div'><a class='link' href='http://localhost:8888/github/devpool/'>Logout</a></div>
+        <?php } ?>
     </div>
     <a href="javascript:void(0);" class="icon" onclick="showMenu()">
         <i class="fa fa-bars"></i>
@@ -24,21 +24,6 @@
             x.style.display = 'block';
         }
     }
-    document.getElementById("about-link").innerHTML = "<a class='link' id='about-link' href='" + baseUrl + "app/about'>About</a>";
-    <?php
-    if ($_SESSION['recruiter_isValid']) {
-        echo "document.getElementById(\"search-link\").innerHTML = \"<a class='link' id='about-link' href='\" + baseUrl + \"app/recruiter/index.php'>Search</a>\";";
-        echo "document.getElementById(\"home-link\").innerHTML = \"<a class='link' id='home_link' href='\" + baseUrl + \"index.php'>Logout</a>\";";
-    }
-
-    if ($_SESSION['talent_isValid']) {
-        echo "document.getElementById(\"search-link\").innerHTML = \"<a class='link' id='about-link' href='\" + baseUrl + \"app/recruiter/index.php'>Search</a>\";";
-        echo "document.getElementById(\"home-link\").innerHTML = \"<a class='link' id='home_link' href='\" + baseUrl + \"index.php'>Logout</a>\";";
-    }
-    if (!$_SESSION['talent_isValid'] || !$_SESSION['talent_isValid']) {
-        echo "document.getElementById(\"home-link\").innerHTML = \"<a class='link' id='home_link' href='\" + baseUrl + \"index.php'>Home</a>\";";
-    }
-    ?>
 </script>
 <style>
     .topnav {
