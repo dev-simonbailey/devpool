@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
     <script src="../../env.js"></script>
-    <script src="../js/menu.js"></script>
 </head>
 
 <body>

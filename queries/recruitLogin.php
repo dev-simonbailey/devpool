@@ -26,10 +26,10 @@ $stmt->bindParam(':password', $_POST['password']);
 $userRet = $stmt->execute();
 
 if (!empty($userRet->fetchArray(SQLITE3_ASSOC))) {
-    $_SESSION['isValid'] = true;
+    $_SESSION['recruiter_isValid'] = true;
 }
 
-if ($_SESSION['isValid']) {
+if ($_SESSION['recruiter_isValid']) {
     echo "Valid User";
     header("Location: http://localhost:8888/github/devpool/app/recruiter/index.php");
 } else {

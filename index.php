@@ -1,9 +1,9 @@
 <?php
 session_start();
-if ($_SESSION['isValid']) {
-  $_SESSION['isValid'] = false;
+if ($_SESSION['recruiter_isValid']) {
+  $_SESSION['recruiter_isValid'] = false;
 }
-if ($_SESSION['isValid']) {
+if ($_SESSION['recruiter_isValid']) {
   error_log("Valid User\n");
 } else {
   error_log("Invalid User\n");
@@ -25,6 +25,7 @@ if ($_SESSION['isValid']) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
   <link href="./app/css/style.css" rel="stylesheet">
+  <script src="env.js"></script>
   <style>
     html {
       -webkit-font-smoothing: antialiased;
@@ -86,6 +87,9 @@ if ($_SESSION['isValid']) {
     .buttons {
       height: 32px;
       width: 200px;
+      cursor: pointer;
+      font-family: 'Dosis', sans-serif;
+      font-size: 18px;
     }
 
     .nouser {
@@ -100,9 +104,11 @@ if ($_SESSION['isValid']) {
 </head>
 
 <body>
+  <?php include(__DIR__ . "/app/global/menu.php"); ?>
+  <br /><br />
   <div class="card">
     <div class="grid-container">
-      <div class="item1 header">fivefivesix</div>
+      <div class="item1"></div>
       <div class="item2"></div>
       <div class="item3">
         Talent
@@ -126,12 +132,14 @@ if ($_SESSION['isValid']) {
         } ?>
         <form name='talent-form' action='queries/recruitLogin.php' method='POST'>
           <input class='boxes' type='text' name='email' placeholder='Email' required>
+          <br />
           <input class='boxes' type='text' name='password' placeholder="Password" required>
+          <br />
           <input class='buttons' type='submit' value='Login'>
         </form>
       </div>
       <div class="item5"></div>
-      <div class="item6">&copy; <?php echo date("Y"); ?> fivefivesix</div>
+      <div class="item6"></div>
     </div>
 </body>
 

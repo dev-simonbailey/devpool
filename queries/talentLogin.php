@@ -30,7 +30,7 @@ if (!empty($userRet->fetchArray(SQLITE3_ASSOC))) {
 }
 
 if ($_SESSION['isValid']) {
-    echo "Valid User";
+    header("Location: http://localhost:8888/github/devpool/app/talent/index.php");
 } else {
     header("Location: http://localhost:8888/github/devpool/index.php?not=true");
 }
