@@ -32,7 +32,7 @@ if (!empty($userRet->fetchArray(SQLITE3_ASSOC))) {
 if ($_SESSION['isValid']) {
     echo "Valid User";
 } else {
-    echo "Invalid User";
+    header("Location: http://localhost:8888/github/devpool/index.php?not=true");
 }
 
 $db->close();

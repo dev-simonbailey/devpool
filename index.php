@@ -1,9 +1,9 @@
 <?php
 session_start();
-if($_SESSION['isValid']){
+if ($_SESSION['isValid']) {
   $_SESSION['isValid'] = false;
 }
-if($_SESSION['isValid']){
+if ($_SESSION['isValid']) {
   error_log("Valid User\n");
 } else {
   error_log("Invalid User\n");
@@ -12,6 +12,7 @@ if($_SESSION['isValid']){
 <!doctype html>
 
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,13 +33,31 @@ if($_SESSION['isValid']){
       line-height: 1.6;
       color: #888;
       background: #333333;
-      }
-    .item1 { grid-area: header; }
-    .item2 { grid-area: left; }
-    .item3 { grid-area: talent; }
-    .item4 { grid-area: recruiter; }
-    .item5 { grid-area: right; }
-    .item6 { grid-area: footer; }
+    }
+
+    .item1 {
+      grid-area: header;
+    }
+
+    .item2 {
+      grid-area: left;
+    }
+
+    .item3 {
+      grid-area: talent;
+    }
+
+    .item4 {
+      grid-area: recruiter;
+    }
+
+    .item5 {
+      grid-area: right;
+    }
+
+    .item6 {
+      grid-area: footer;
+    }
 
     .grid-container {
       display: grid;
@@ -52,45 +71,68 @@ if($_SESSION['isValid']){
       padding: 0px;
     }
 
-    .grid-container > div {
-      background-color: #333333;
+    .grid-container>div {
+
       text-align: center;
       padding: 20px 0;
       font-size: 30px;
     }
+
     .boxes {
       height: 32px;
+      width: 200px;
     }
+
     .buttons {
       height: 32px;
+      width: 200px;
     }
-</style>
+
+    .nouser {
+      font-size: 20px;
+      color: red;
+    }
+
+    .card {
+      margin: auto;
+    }
+  </style>
 </head>
 
 <body>
-<div class="grid-container">
-  <div class="item1">fivefivesix</div>
-  <div class="item2"></div> 
-  <div class="item3">
-    Talent
-    <form name='talent-form' action='queries/talentLogin.php' method='POST'>
-      <input class='boxes' type='text' name='email' placeholder='Email' required>
-      <input class='boxes' type='text' name='password' placeholder="Password" required>
-      <input class='buttons'type='submit' value='Login'>
-    </form>
-  </div>  
-  <div class="item5"></div> 
-  <div class="item2"></div> 
-  <div class="item4">
-    Recruiter
-    <form name='talent-form' action='queries/recruitLogin.php' method='POST'>
-      <input class='boxes' type='text' name='email' placeholder='Email' required>
-      <input class='boxes' type='text' name='password' placeholder="Password" required>
-      <input class='buttons'type='submit' value='Login'>
-    </form>
-  </div>
-  <div class="item5"></div>
-  <div class="item6">&copy; <?php echo date("Y");?> fivefivesix</div>
-</div>
+  <div class="card">
+    <div class="grid-container">
+      <div class="item1 header">fivefivesix</div>
+      <div class="item2"></div>
+      <div class="item3">
+        Talent
+        <?php if ($_GET['not'] == 'true') {
+          echo "<br /><span class='nouser'>Invalid User</span>";
+        } ?>
+        <form name='talent-form' action='queries/talentLogin.php' method='POST'>
+          <input class='boxes' type='text' name='email' placeholder='Email' required>
+          <br />
+          <input class='boxes' type='text' name='password' placeholder="Password" required>
+          <br />
+          <input class='buttons' type='submit' value='Login'>
+        </form>
+      </div>
+      <div class="item5"></div>
+      <div class="item2"></div>
+      <div class="item4">
+        Recruiter
+        <?php if ($_GET['nor'] == 'true') {
+          echo "<br /><span class='nouser'>Invalid User</span>";
+        } ?>
+        <form name='talent-form' action='queries/recruitLogin.php' method='POST'>
+          <input class='boxes' type='text' name='email' placeholder='Email' required>
+          <input class='boxes' type='text' name='password' placeholder="Password" required>
+          <input class='buttons' type='submit' value='Login'>
+        </form>
+      </div>
+      <div class="item5"></div>
+      <div class="item6">&copy; <?php echo date("Y"); ?> fivefivesix</div>
+    </div>
 </body>
+
 </html>
