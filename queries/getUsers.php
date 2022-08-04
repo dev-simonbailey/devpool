@@ -21,18 +21,27 @@ while ($rowUser = $userRet->fetchArray(SQLITE3_ASSOC)) {
 
     echo "Name: " . $rowUser['first_name'] . " " . $rowUser['last_name'] . "\n";
 
-    $techQuery = "SELECT `name`, `exp` FROM tech WHERE user_id='" . $rowUser['id'] . "';";
+    $techQuery = 'SELECT `name`, `exp` FROM tech WHERE user_id=:userid;';
 
-    $techRet = $db->query($techQuery);
+    $stmt = $db->prepare($query);
+
+    $stmt->bindParam(':userid', $rowUser['id']);
+
+    $techRet = $stmt->execute();
 
     while ($rowTech = $techRet->fetchArray(SQLITE3_ASSOC)) {
 
         echo "TECH => " . $rowTech['name'] . " -> EXP => " . $rowTech['exp'] . "\n";
     }
 
-    $jobsQuery = "SELECT `title`, `exp` FROM jobs WHERE user_id='" . $rowUser['id'] . "';";
+    $jobsQuery = 'SELECT `title`, `exp` FROM jobs WHERE user_id=:userid;';
 
-    $jobsRet = $db->query($jobsQuery);
+    $stmt = $db->prepare($query);
+
+    $stmt->bindParam(':userid', $rowUser['id']);
+
+    $jobsRet = $stmt->execute();
+
 
     while ($rowJobs = $jobsRet->fetchArray(SQLITE3_ASSOC)) {
 
