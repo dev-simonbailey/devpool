@@ -1,43 +1,42 @@
 <?php
 
-error_reporting( E_ALL );
+error_reporting(E_ALL);
 
-require_once( __DIR__."/../classes/Connector.php" );
+require_once(__DIR__ . "/../classes/Connector.php");
 
 $db = new DevPool();
 
-if( !$db ) {
+if (!$db) {
 
     echo $db->lastErrorMsg();
-
 }
 
-$userQuery = "SELECT * FROM users";
+$query = 'SELECT * FROM users;';
 
-$userRet = $db->query( $userQuery );
+$stmt = $db->prepare($query);
 
-while( $rowUser = $userRet->fetchArray( SQLITE3_ASSOC ) ) {
-    
-    echo "Name: ".$rowUser['first_name']." ".$rowUser['last_name']."\n";
-    
-    $techQuery = "SELECT `name`, `exp` FROM tech WHERE user_id='".$rowUser['id']."';";
-    
-    $techRet = $db->query( $techQuery );
-    
-    while( $rowTech = $techRet->fetchArray( SQLITE3_ASSOC ) ) {
-    
-        echo "TECH => ".$rowTech['name']." -> EXP => ".$rowTech['exp']."\n";
-    
+$userRet = $stmt->execute();
+
+while ($rowUser = $userRet->fetchArray(SQLITE3_ASSOC)) {
+
+    echo "Name: " . $rowUser['first_name'] . " " . $rowUser['last_name'] . "\n";
+
+    $techQuery = "SELECT `name`, `exp` FROM tech WHERE user_id='" . $rowUser['id'] . "';";
+
+    $techRet = $db->query($techQuery);
+
+    while ($rowTech = $techRet->fetchArray(SQLITE3_ASSOC)) {
+
+        echo "TECH => " . $rowTech['name'] . " -> EXP => " . $rowTech['exp'] . "\n";
     }
-    
-    $jobsQuery = "SELECT `title`, `exp` FROM jobs WHERE user_id='".$rowUser['id']."';";
-    
-    $jobsRet = $db->query( $jobsQuery );
-    
-    while( $rowJobs = $jobsRet->fetchArray( SQLITE3_ASSOC ) ) {
-    
-        echo "Jobs => ".$rowJobs['title']." -> EXP => ".$rowJobs['exp']."\n";
-    
+
+    $jobsQuery = "SELECT `title`, `exp` FROM jobs WHERE user_id='" . $rowUser['id'] . "';";
+
+    $jobsRet = $db->query($jobsQuery);
+
+    while ($rowJobs = $jobsRet->fetchArray(SQLITE3_ASSOC)) {
+
+        echo "Jobs => " . $rowJobs['title'] . " -> EXP => " . $rowJobs['exp'] . "\n";
     }
 
     echo "\n";
