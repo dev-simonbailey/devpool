@@ -20,6 +20,7 @@ $userRet = $stmt->execute();
 while ($rowUser = $userRet->fetchArray(SQLITE3_ASSOC)) {
 
     $firstName = htmlspecialchars($rowUser['first_name']);
+
     $lastName = htmlspecialchars($rowUser['last_name']);
 
     echo "Name: " . $firstName . " " . $lastName . "\n";
@@ -35,6 +36,7 @@ while ($rowUser = $userRet->fetchArray(SQLITE3_ASSOC)) {
     while ($rowTech = $techRet->fetchArray(SQLITE3_ASSOC)) {
 
         $techName = htmlspecialchars($rowTech['name']);
+
         $techExp = htmlspecialchars($rowTech['exp']);
 
         echo "TECH => " . $techName . " -> EXP => " . $techExp . "\n";
@@ -48,11 +50,12 @@ while ($rowUser = $userRet->fetchArray(SQLITE3_ASSOC)) {
 
     $jobsRet = $stmt->execute();
 
-
     while ($rowJobs = $jobsRet->fetchArray(SQLITE3_ASSOC)) {
 
         $jobsTitle = htmlspecialchars($rowJobs['title']);
+
         $jobsExp = htmlspecialchars($rowJobs['exp']);
+
         echo "Jobs => " . $jobsTitle . " -> EXP => " . $jobsExp . "\n";
     }
 
