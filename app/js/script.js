@@ -34,9 +34,9 @@ requestStack.onload = function () {
     stackData.forEach((stack) => {
       techTable +=
         "<tr><td width='60%'>" +
-        stack.tech_name +
+        escapeHtml(stack.tech_name) +
         "</td><td><input type='checkbox' data-name='" +
-        stack.tech_name +
+        escapeHtml(stack.tech_name) +
         "' data-id='" +
         stack.id +
         "' id='tech_" +
@@ -49,13 +49,12 @@ requestStack.onload = function () {
       techRowCounter++;
     });
   }
-
   techTable +=
     "<tr><td colspan='3' align='center'><button class='button-9' role='button' onClick='getTalent()'>Search</button></td></tr>";
   techTable +=
     "<tr><td colspan='3' align='center'><button class='button-9' role='button' onClick='resetCards()'>Reset</button></td></tr>";
   techTable += '</table><br /></center>';
-  searchList.innerHTML = htmlspecialchars(techTable);
+  searchList.innerHTML = techTable;
   container.appendChild(searchCard);
   searchCard.appendChild(searchHeader);
   searchCard.appendChild(searchList);
@@ -73,7 +72,7 @@ request.onload = function () {
       card.setAttribute('class', 'card');
 
       const talentName = document.createElement('h1');
-      talentName.textContent = talent.name;
+      talentName.textContent = escapeHtml(talent.name);
 
       const techPoints = document.createElement('h2');
       techPoints.className = 'tech-points';
@@ -87,14 +86,14 @@ request.onload = function () {
       email.className = 'email-header';
       email.innerHTML =
         "<a href='mailto:" +
-        talent.email +
+        escapeHtml(talent.email) +
         "'><button class='button-9' role='button'>Contact " +
-        talent.name +
+        escapeHtml(talent.name) +
         '</button></a>';
 
       const salary = document.createElement('h3');
       salary.className = 'salary_header';
-      salary.textContent = 'Salary Expectations: ' + talent.salary;
+      salary.textContent = 'Salary Expectations: ' + escapeHtml(talent.salary);
 
       const jobsHeader = document.createElement('h3');
       jobsHeader.className = 'jobs_header';
@@ -104,9 +103,9 @@ request.onload = function () {
       jobsHeld.setAttribute('style', 'white-space: pre;');
 
       for (i = 0; i < talent.roles.length; i++) {
-        jobsHeld.textContent += talent.roles[i].title;
+        jobsHeld.textContent += escapeHtml(talent.roles[i].title);
         jobsHeld.textContent += ' (';
-        jobsHeld.textContent += talent.roles[i].exp;
+        jobsHeld.textContent += escapeHtml(talent.roles[i].exp);
         jobsHeld.textContent += ' yrs)';
         jobsHeld.textContent += '\r\n';
       }
@@ -133,9 +132,13 @@ request.onload = function () {
 
       if ('additional' in talent.stack === true) {
         for (i = 0; i < talent.stack.additional.length; i++) {
-          additionalTech.textContent += talent.stack.additional[i].title;
+          additionalTech.textContent += escapeHtml(
+            talent.stack.additional[i].title
+          );
           additionalTech.textContent += ' (';
-          additionalTech.textContent += talent.stack.additional[i].exp;
+          additionalTech.textContent += escapeHtml(
+            talent.stack.additional[i].exp
+          );
           additionalTech.textContent += ' yrs)';
           additionalTech.textContent += '\r\n';
         }
@@ -169,9 +172,6 @@ request.onload = function () {
   }
 };
 
-/**
- * Remove any talent cards, reset all the options checkboxes and exp dropwdowns
- */
 function resetCards() {
   for (let index = 1; index <= techRowCounter; index++) {
     document.getElementById('tech_' + index).checked = false;
@@ -205,12 +205,12 @@ function getTalent() {
     if (element.checked == true) {
       if (techExp != 'x') {
         noTech = false;
-        queryString += '"' + dataType + '":"' + techExp + '",';
+        queryString += '"' + escapeHtml(dataType) + '":"' + techExp + '",';
       } else {
         noExp = true;
         errorMsg +=
           "<i class='fa fa-exclamation-triangle' style='color:red'/></i>&nbsp;&nbsp;&nbsp;No Exp value for " +
-          dataName +
+          escapeHtml(dataName) +
           '<br />';
       }
     }
@@ -246,4 +246,18 @@ function getTalent() {
     card.appendChild(errorHeader);
     card.appendChild(errorMessage);
   }
+}
+
+function escapeHtml(text) {
+  var map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;',
+  };
+
+  return text.toString().replace(/[&<>"']/g, function (m) {
+    return map[m];
+  });
 }
