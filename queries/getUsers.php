@@ -19,33 +19,41 @@ $userRet = $stmt->execute();
 
 while ($rowUser = $userRet->fetchArray(SQLITE3_ASSOC)) {
 
-    echo "Name: " . $rowUser['first_name'] . " " . $rowUser['last_name'] . "\n";
+    $firstName = htmlspecialchars($rowUser['first_name']);
+    $lastName = htmlspecialchars($rowUser['last_name']);
+
+    echo "Name: " . $firstName . " " . $lastName . "\n";
 
     $techQuery = 'SELECT `name`, `exp` FROM tech WHERE user_id=:userid;';
 
     $stmt = $db->prepare($query);
 
-    $stmt->bindParam(':userid', $rowUser['id']);
+    $stmt->bindParam(':userid', htmlspecialchars($rowUser['id']));
 
     $techRet = $stmt->execute();
 
     while ($rowTech = $techRet->fetchArray(SQLITE3_ASSOC)) {
 
-        echo "TECH => " . $rowTech['name'] . " -> EXP => " . $rowTech['exp'] . "\n";
+        $techName = htmlspecialchars($rowTech['name']);
+        $techExp = htmlspecialchars($rowTech['exp']);
+
+        echo "TECH => " . $techName . " -> EXP => " . $techExp . "\n";
     }
 
     $jobsQuery = 'SELECT `title`, `exp` FROM jobs WHERE user_id=:userid;';
 
     $stmt = $db->prepare($query);
 
-    $stmt->bindParam(':userid', $rowUser['id']);
+    $stmt->bindParam(':userid', htmlspecialchars($rowUser['id']));
 
     $jobsRet = $stmt->execute();
 
 
     while ($rowJobs = $jobsRet->fetchArray(SQLITE3_ASSOC)) {
 
-        echo "Jobs => " . $rowJobs['title'] . " -> EXP => " . $rowJobs['exp'] . "\n";
+        $jobsTitle = htmlspecialchars($rowJobs['title']);
+        $jobsExp = htmlspecialchars($rowJobs['exp']);
+        echo "Jobs => " . $jobsTitle . " -> EXP => " . $jobsExp . "\n";
     }
 
     echo "\n";
