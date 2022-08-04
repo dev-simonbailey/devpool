@@ -10,6 +10,9 @@
             <div class='link-div'><a class='link' href='http://localhost:8888/github/devpool/app/recruiter/'>Search</a></div>
             <div class='link-div'><a class='link' href='http://localhost:8888/github/devpool/'>Logout</a></div>
         <?php } ?>
+        <?php if (!$_SESSION['recruiter_isValid'] && !$_SESSION['talent_isValid']) { ?>
+            <div class='link-div'><a class='link' href='http://localhost:8888/github/devpool/'>Home</a></div>
+        <?php } ?>
     </div>
     <a href="javascript:void(0);" class="icon" onclick="showMenu()">
         <i class="fa fa-bars"></i>
