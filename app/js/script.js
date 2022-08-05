@@ -1,65 +1,188 @@
-const app = document.getElementById('root');
-
-const container = document.createElement('div');
-container.setAttribute('class', 'container');
-app.appendChild(container);
+// var listData;
+var stackData;
+var listData;
+var techRowCounter = 1;
+var techTable = '';
 
 let options = "<option value='x'>Exp</option>";
 for (i = 0; i <= 21; i++) {
   options += "<option value='" + i + "'>" + i + '</option>';
 }
 
-var techRowCounter = 1;
-var requestStack = new XMLHttpRequest();
-let url = baseUrl + 'queries/getStack.php';
+//get the root
+const app = document.getElementById('root');
 
-requestStack.open('GET', url, true);
+//create container
+const container = document.createElement('div');
+container.setAttribute('class', 'container');
+app.appendChild(container);
+
+//create main card
+const searchCard = document.createElement('div');
+searchCard.setAttribute('class', 'card');
+
+//create main card header
+const searchHeader = document.createElement('h1');
+searchHeader.textContent = 'Search for...';
+
+//create my list
+const myList = document.createElement('div');
+myList.setAttribute('class', 'mylist-div');
+var myListTable =
+  '<center><select name="lists" id="lists" class="mylist-list">';
+var mylistOptions;
+var requestList = new XMLHttpRequest();
+let listURL = baseUrl + 'queries/getLists.php';
+requestList.open('GET', listURL, true);
+requestList.send();
+requestList.onload = function () {
+  listData = JSON.parse(requestList.response);
+  if (requestList.status >= 200 && requestList.status < 400) {
+    listData.forEach((list) => {
+      myListTable += '<option value="1">' + list.list_name + '</option>';
+    });
+  }
+  myListTable += '</select></center>';
+  myList.innerHTML = myListTable;
+};
+
+//create searchlist
+const searchList = document.createElement('div');
+searchList.setAttribute('class', 'search-list');
+techTable = '<center><table>';
+var requestStack = new XMLHttpRequest();
+let stackURL = baseUrl + 'queries/getStack.php';
+requestStack.open('GET', stackURL, true);
 requestStack.send();
 requestStack.onload = function () {
-  var stackData = JSON.parse(requestStack.response);
-  var techTable = '';
-
-  const searchCard = document.createElement('div');
-  searchCard.setAttribute('class', 'card');
-
-  const searchHeader = document.createElement('h1');
-  searchHeader.textContent = 'Search for...';
-
-  const searchList = document.createElement('div');
-  searchList.setAttribute('class', 'search-list');
-
-  techTable = '<center><table>';
-
+  stackData = JSON.parse(requestStack.response);
+  stackCode = requestStack.status;
   if (requestStack.status >= 200 && requestStack.status < 400) {
     stackData.forEach((stack) => {
+      techTable += '<tr>';
+      techTable += '<td width="60%">' + escapeHtml(stack.tech_name) + '</td>';
       techTable +=
-        "<tr><td width='60%'>" +
+        '<td><input type="checkbox" data-name="' +
         escapeHtml(stack.tech_name) +
-        "</td><td><input type='checkbox' data-name='" +
-        escapeHtml(stack.tech_name) +
-        "' data-id='" +
+        '" data-id="' +
         stack.id +
-        "' id='tech_" +
+        '" id="tech_' +
         techRowCounter +
-        "' onclick='setState(this.id)'></td><td><select id='tech_" +
+        '" onclick="setState(this.id)"}></td>';
+      techTable +=
+        '<td><select id="tech_' +
         techRowCounter +
-        "-exp' disabled>" +
+        '-exp" disabled>' +
         options +
-        '</select> yrs</td></tr>';
+        '</select> yrs</td>';
+      techTable += '</tr>';
       techRowCounter++;
     });
   }
+  techTable += '<tr>';
   techTable +=
-    "<tr><td colspan='3' align='center'><button class='button-9' role='button' onClick='getTalent()'>Search</button></td></tr>";
+    '<td colspan="3" align="center"><button class="button-9" role="button" onClick="getTalent()">Search</button></td>';
+  techTable += '</tr>';
+  techTable += '<tr>';
   techTable +=
-    "<tr><td colspan='3' align='center'><button class='button-9' role='button' onClick='resetCards()'>Reset</button></td></tr>";
+    '<td colspan="3" align="center"><button class="button-9" role="button" onClick="resetCards()">Reset</button></td>';
+  techTable += '</tr>';
+  techTable += '<tr>';
+  techTable += '<td colspan="3" align="center"></td>';
+  techTable += '</tr>';
   techTable += '</table><br /></center>';
   searchList.innerHTML = techTable;
-  container.appendChild(searchCard);
-  searchCard.appendChild(searchHeader);
-  searchCard.appendChild(searchList);
-  techRowCounter = stackData.length;
 };
+
+//Add to the main card to page.
+container.appendChild(searchCard);
+//add the header to the card
+searchCard.appendChild(searchHeader);
+//add the mylist to the card
+searchCard.appendChild(myList);
+searchCard.appendChild(searchList);
+
+function escapeHtml(text) {
+  var map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;',
+  };
+
+  return text.toString().replace(/[&<>"']/g, function (m) {
+    return map[m];
+  });
+}
+
+function resetCards() {
+  for (let index = 1; index <= techRowCounter - 1; index++) {
+    document.getElementById('tech_' + index).checked = false;
+    document.getElementById('tech_' + index + '-exp').selectedIndex = 0;
+    document.getElementById('tech_' + index + '-exp').disabled = true;
+  }
+
+  while (container.childNodes.length > 1) {
+    container.removeChild(container.lastChild);
+  }
+}
+
+function getTalent() {
+  while (container.childNodes.length > 1) {
+    container.removeChild(container.lastChild);
+  }
+  let noTech = true;
+  let noExp = false;
+  let errorMsg = '';
+  let queryString = '{';
+  for (i = 1; i <= techRowCounter - 1; i++) {
+    var element = document.getElementById('tech_' + i);
+    var dataType = element.getAttribute('data-id');
+    var dataName = element.getAttribute('data-name');
+    var techExp = document.getElementById('tech_' + i + '-exp').value;
+    if (element.checked == true) {
+      if (techExp != 'x') {
+        noTech = false;
+        queryString += '"' + escapeHtml(dataType) + '":"' + techExp + '",';
+      } else {
+        noExp = true;
+        errorMsg +=
+          "<i class='fa fa-exclamation-triangle' style='color:red'/></i>&nbsp;&nbsp;&nbsp;No Exp value for " +
+          escapeHtml(dataName) +
+          '<br />';
+      }
+    }
+  }
+  queryString = queryString.slice(0, -1);
+  queryString += '}';
+  if (!noExp && !noTech) {
+    let url = baseUrl + 'queries/getTech.php';
+    request.open('POST', url, true);
+    request.send(queryString);
+  } else {
+    const card = document.createElement('div');
+    card.setAttribute('class', 'card');
+
+    const errorHeader = document.createElement('h1');
+    errorHeader.textContent = 'ERROR';
+
+    const errorMessage = document.createElement('p');
+
+    if (noTech) {
+      errorMessage.innerHTML =
+        "<i class='fa fa-exclamation-triangle' style='color:red'/></i>&nbsp;&nbsp;&nbsp;No Selection Made";
+    }
+
+    if (noExp) {
+      errorMessage.innerHTML = errorMsg;
+    }
+
+    container.appendChild(card);
+    card.appendChild(errorHeader);
+    card.appendChild(errorMessage);
+  }
+}
 
 var request = new XMLHttpRequest();
 
@@ -90,6 +213,13 @@ request.onload = function () {
         "'><button class='button-9' role='button'>Contact " +
         escapeHtml(talent.name) +
         '</button></a>';
+
+      const addtolist = document.createElement('h3');
+      addtolist.className = 'email-header';
+      addtolist.innerHTML =
+        "<a href='mailto:" +
+        escapeHtml(talent.email) +
+        "'><button class='button-9' role='button'>Add to current list</button></a>";
 
       const salary = document.createElement('h3');
       salary.className = 'salary_header';
@@ -147,6 +277,7 @@ request.onload = function () {
       container.appendChild(card);
       card.appendChild(talentName);
       card.appendChild(email);
+      card.appendChild(addtolist);
       card.appendChild(techPoints);
       card.appendChild(expPoints);
       card.appendChild(salary);
@@ -171,93 +302,3 @@ request.onload = function () {
     card.appendChild(errorMessage);
   }
 };
-
-function resetCards() {
-  for (let index = 1; index <= techRowCounter; index++) {
-    document.getElementById('tech_' + index).checked = false;
-
-    document.getElementById('tech_' + index + '-exp').selectedIndex = 0;
-
-    document.getElementById('tech_' + index + '-exp').disabled = true;
-  }
-
-  while (container.childNodes.length > 1) {
-    container.removeChild(container.lastChild);
-  }
-}
-
-function getTalent() {
-  while (container.childNodes.length > 1) {
-    container.removeChild(container.lastChild);
-  }
-
-  let noTech = true;
-  let noExp = false;
-  let errorMsg = '';
-  let queryString = '{';
-
-  for (i = 1; i <= techRowCounter; i++) {
-    var element = document.getElementById('tech_' + i);
-    var dataType = element.getAttribute('data-id');
-    var dataName = element.getAttribute('data-name');
-    var techExp = document.getElementById('tech_' + i + '-exp').value;
-
-    if (element.checked == true) {
-      if (techExp != 'x') {
-        noTech = false;
-        queryString += '"' + escapeHtml(dataType) + '":"' + techExp + '",';
-      } else {
-        noExp = true;
-        errorMsg +=
-          "<i class='fa fa-exclamation-triangle' style='color:red'/></i>&nbsp;&nbsp;&nbsp;No Exp value for " +
-          escapeHtml(dataName) +
-          '<br />';
-      }
-    }
-  }
-
-  queryString = queryString.slice(0, -1);
-  queryString += '}';
-
-  if (!noExp && !noTech) {
-    let url = baseUrl + 'queries/getTech.php';
-
-    request.open('POST', url, true);
-    request.send(queryString);
-  } else {
-    const card = document.createElement('div');
-    card.setAttribute('class', 'card');
-
-    const errorHeader = document.createElement('h1');
-    errorHeader.textContent = 'ERROR';
-
-    const errorMessage = document.createElement('p');
-
-    if (noTech) {
-      errorMessage.innerHTML =
-        "<i class='fa fa-exclamation-triangle' style='color:red'/></i>&nbsp;&nbsp;&nbsp;No Selection Made";
-    }
-
-    if (noExp) {
-      errorMessage.innerHTML = errorMsg;
-    }
-
-    container.appendChild(card);
-    card.appendChild(errorHeader);
-    card.appendChild(errorMessage);
-  }
-}
-
-function escapeHtml(text) {
-  var map = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#039;',
-  };
-
-  return text.toString().replace(/[&<>"']/g, function (m) {
-    return map[m];
-  });
-}

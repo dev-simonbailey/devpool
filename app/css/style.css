@@ -96,6 +96,29 @@ box-shadow: 2px 8px 45px rgba(0, 0, 0, .15);
 transform: translate3D(0, -2px, 0);
 }
 
+.mylist-div{
+  margin:auto;
+  width: 100%;
+  border-bottom: #fff 1px solid;
+  padding: 1.5rem;
+  background-color: rgb(31, 31, 31);
+  margin: 0 0 1rem 0;
+}
+.mylist-list{
+  appearance: none;
+  background-color: White;
+  border: none;
+  padding: 0 1em 0 1em;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  line-height: inherit;
+  border-radius: 2px;
+}
+
+
 .search-list{
     max-height: 500px;
     overflow: scroll;
@@ -152,6 +175,8 @@ transform: translate3D(0, -2px, 0);
     }
   }
   
+
+
   /*
   .card:nth-child(2n) h1 {
     background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);

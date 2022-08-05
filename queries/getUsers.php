@@ -11,7 +11,7 @@ if (!$db) {
     echo $db->lastErrorMsg();
 }
 
-$query = 'SELECT * FROM users;';
+$query = 'SELECT * FROM user_users;';
 
 $stmt = $db->prepare($query);
 
