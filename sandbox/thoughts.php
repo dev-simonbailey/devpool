@@ -10,5 +10,3 @@
 // TODO Build the talent contact system
 // TODO Build the talent CV system
 // TODO Build the talent job application system
-// TODO Build the 
-// TODO Refactor gettech in script.js - move to self contained function

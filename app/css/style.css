@@ -99,8 +99,8 @@ transform: translate3D(0, -2px, 0);
 .mylist-div{
   margin:auto;
   width: 100%;
-  border-bottom: #fff 1px solid;
-  padding: 1.5rem;
+  border-top: #fff 1px solid;
+  padding: 1.5rem 1.5rem 0rem 1.5rem;
   background-color: rgb(31, 31, 31);
   margin: 0 0 1rem 0;
 }
@@ -118,6 +118,29 @@ transform: translate3D(0, -2px, 0);
   border-radius: 2px;
 }
 
+.mylist-h1 {
+  text-align: center;
+  background-color: rgb(31, 31, 31);
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  color: white;
+  border-bottom: none;
+  padding: 1rem 1.5rem 0rem 1.5rem;
+  }
+
+  .mylist-input{
+    appearance: none;
+    background-color: White;
+    border: none;
+    padding: 0 1em 0 1em;
+    margin: 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    line-height: inherit;
+    border-radius: 2px;
+  }
 
 .search-list{
     max-height: 500px;

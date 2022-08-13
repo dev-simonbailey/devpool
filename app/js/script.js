@@ -23,13 +23,18 @@ searchCard.setAttribute('class', 'card');
 
 //create main card header
 const searchHeader = document.createElement('h1');
-searchHeader.textContent = 'Search for...';
+var searchHTML =
+  '<button class="button-9" role="button" onClick="getTalent()">Search</button>';
+searchHTML +=
+  '<button class="button-9" role="button" onClick="resetCards()">Reset</button>';
+
+searchHeader.innerHTML = searchHTML;
 
 //create my list
 const myList = document.createElement('div');
 myList.setAttribute('class', 'mylist-div');
-var myListTable =
-  '<center><select name="lists" id="lists" class="mylist-list">';
+var myListTable = '<center>';
+myListTable += '<select name="lists" id="lists" class="mylist-list">';
 var mylistOptions;
 var requestList = new XMLHttpRequest();
 let listURL = baseUrl + 'queries/getLists.php';
@@ -42,7 +47,12 @@ requestList.onload = function () {
       myListTable += '<option value="1">' + list.list_name + '</option>';
     });
   }
-  myListTable += '</select></center>';
+  myListTable += '</select>';
+  myListTable += '<h1 class="mylist-h1">New List</h1>';
+  myListTable +=
+    '<input type="text" id="list-name" placeholder="New List Name" class="mylist-input"></input>';
+  myListTable +=
+    '<button class="button-9" onClick="createList()">Create List</button></center>';
   myList.innerHTML = myListTable;
 };
 
@@ -80,14 +90,6 @@ requestStack.onload = function () {
     });
   }
   techTable += '<tr>';
-  techTable +=
-    '<td colspan="3" align="center"><button class="button-9" role="button" onClick="getTalent()">Search</button></td>';
-  techTable += '</tr>';
-  techTable += '<tr>';
-  techTable +=
-    '<td colspan="3" align="center"><button class="button-9" role="button" onClick="resetCards()">Reset</button></td>';
-  techTable += '</tr>';
-  techTable += '<tr>';
   techTable += '<td colspan="3" align="center"></td>';
   techTable += '</tr>';
   techTable += '</table><br /></center>';
@@ -96,12 +98,13 @@ requestStack.onload = function () {
 
 //Add to the main card to page.
 container.appendChild(searchCard);
+
 //add the header to the card
 searchCard.appendChild(searchHeader);
+
+searchCard.appendChild(searchList);
 //add the mylist to the card
 searchCard.appendChild(myList);
-searchCard.appendChild(searchList);
-
 function escapeHtml(text) {
   var map = {
     '&': '&amp;',
